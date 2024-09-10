@@ -49,8 +49,6 @@ class Scrape:
         bnrinfo = bnrinfo.decode('ascii')
         bnrinfo_comma = bnrinfo.split(", ")
         bnrinfo_rx = bnrinfo.split("\nRX")
-
-        # bnrinfo = ['atcli at+bnrinfo\r\n\r\r\nNR BAND:77', 'EARFCN:673344 DL_bandwidth:100MHz\r\r\nphysical cell ID:431', 'averaged PUSCH TX power :1 dBm', 'averaged PUCCH TX power :4 dBm', '\r\r\nRX Power Info:\r\r\nRSRQ -14 dB', 'RSRP -79 dBm,SINR 0 dB\r\r\nRX0 power: -66 dBm,ecio: -14 dB', 'rsrp: -80 dBm', 'phase: 0 degree', 'sinr: 0 dB\r\r\nRX1 power: -67 dBm,ecio: -17 dB', 'rsrp: -84 dBm', 'phase: 0 degree', 'sinr: -4 dB\r\r\nRX2 power: -66 dBm,ecio: -16 dB', 'rsrp: -83 dBm', 'phase: 0 degree', 'sinr: -4 dB\r\r\nRX3 power: -72 dBm,ecio: -16 dB', 'rsrp: -88 dBm,phase: 0 degree,sinr: -3 dB\r\r\nNR CQI 12,RANK 2\r\r\nServing Beam SSB index 1,FR2 serving Beam:255,255\r\r\n\r\r\n\r\r\nOK']
         
         for line in bnrinfo_comma:
             if "NR BAND" in line:
@@ -80,15 +78,33 @@ class Scrape:
             if "FR2 serving Beam" in line:
                 self.__output['FR2 serving Beam'] = line.split(" ")[1]
         
-
-        # print(bnrinfo)
+        for line in bnrinfo_rx:
+            if "0 power" in line:
+                self.__output['RX0']["power"] = line.split("power: ")[1].split(" dBm,ecio:")[0]
+                self.__output['RX0']["ecio"] = line.split("ecio: ")[1].split(" dB, rsrp:")[0]
+                self.__output['RX0']["rsrp"] = line.split("rsrp: ")[1].split(" dBm, phase")[0]
+                self.__output['RX0']["phase"] = line.split("phase: ")[1].split(" degree, sinr")[0]
+                self.__output['RX0']["sinr"] = line.split("sinr: ")[1].split(" dB")[0]
+            if "1 power" in line:
+                self.__output['RX1']["power"] = line.split("power: ")[1].split(" dBm,ecio:")[0]
+                self.__output['RX1']["ecio"] = line.split("ecio: ")[1].split(" dB, rsrp:")[0]
+                self.__output['RX1']["rsrp"] = line.split("rsrp: ")[1].split(" dBm, phase")[0]
+                self.__output['RX1']["phase"] = line.split("phase: ")[1].split(" degree, sinr")[0]
+                self.__output['RX1']["sinr"] = line.split("sinr: ")[1].split(" dB")[0]
+            if "2 power" in line:
+                self.__output['RX2']["power"] = line.split("power: ")[1].split(" dBm,ecio:")[0]
+                self.__output['RX2']["ecio"] = line.split("ecio: ")[1].split(" dB, rsrp:")[0]
+                self.__output['RX2']["rsrp"] = line.split("rsrp: ")[1].split(" dBm, phase")[0]
+                self.__output['RX2']["phase"] = line.split("phase: ")[1].split(" degree, sinr")[0]
+                self.__output['RX2']["sinr"] = line.split("sinr: ")[1].split(" dB")[0]
+            if "3 power" in line:
+                self.__output['RX3']["power"] = line.split("power: ")[1].split(" dBm,ecio:")[0]
+                self.__output['RX3']["ecio"] = line.split("ecio: ")[1].split(" dB, rsrp:")[0]
+                self.__output['RX3']["rsrp"] = line.split("rsrp: ")[1].split(" dBm, phase")[0]
+                self.__output['RX3']["phase"] = line.split("phase: ")[1].split(" degree, sinr")[0]
+                self.__output['RX3']["sinr"] = line.split("sinr: ")[1].split(" dB")[0]
 
         print(self.__output)
-
-        print(bnrinfo_rx)
-
-
-                
 
 if __name__ == "__main__":
     scrape = Scrape()
