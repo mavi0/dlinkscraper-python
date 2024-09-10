@@ -104,8 +104,8 @@ class Scrape:
                 self.__output['RX3'] = {}
                 self.__output['RX3']["power"] = line.split("power: ")[1].split(" dBm,ecio:")[0]
                 self.__output['RX3']["ecio"] = line.split("ecio: ")[1].split(" dB, rsrp:")[0]
-                self.__output['RX3']["rsrp"] = line.split("rsrp: ")[1].split(" dBm, phase")[0]
-                self.__output['RX3']["phase"] = line.split("phase: ")[1].split(" degree, sinr")[0]
+                self.__output['RX3']["rsrp"] = line.split("rsrp: ")[1].split(" dBm,phase: ")[0]
+                self.__output['RX3']["phase"] = line.split("phase: ")[1].split(" degree,sinr: ")[0]
                 self.__output['RX3']["sinr"] = line.split("sinr: ")[1].split(" dB")[0]
 
         print(self.__output)
