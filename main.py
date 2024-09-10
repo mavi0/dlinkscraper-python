@@ -47,39 +47,30 @@ class Scrape:
 
         # Parse the output of the command and store it in the output dict
         bnrinfo = bnrinfo.decode('ascii')
-        bnrinfo = bnrinfo.split(", ")
+        bnrinfo_comma = bnrinfo.split(", ")
+        bnrinfo_rx = bnrinfo.split("\nRX")
 
-        bnrinfo = ['atcli at+bnrinfo\r\n\r\r\nNR BAND:77', 'EARFCN:673344 DL_bandwidth:100MHz\r\r\nphysical cell ID:431', 'averaged PUSCH TX power :1 dBm', 'averaged PUCCH TX power :4 dBm', '\r\r\nRX Power Info:\r\r\nRSRQ -14 dB', 'RSRP -79 dBm,SINR 0 dB\r\r\nRX0 power: -66 dBm,ecio: -14 dB', 'rsrp: -80 dBm', 'phase: 0 degree', 'sinr: 0 dB\r\r\nRX1 power: -67 dBm,ecio: -17 dB', 'rsrp: -84 dBm', 'phase: 0 degree', 'sinr: -4 dB\r\r\nRX2 power: -66 dBm,ecio: -16 dB', 'rsrp: -83 dBm', 'phase: 0 degree', 'sinr: -4 dB\r\r\nRX3 power: -72 dBm,ecio: -16 dB', 'rsrp: -88 dBm,phase: 0 degree,sinr: -3 dB\r\r\nNR CQI 12,RANK 2\r\r\nServing Beam SSB index 1,FR2 serving Beam:255,255\r\r\n\r\r\n\r\r\nOK']
+        # bnrinfo = ['atcli at+bnrinfo\r\n\r\r\nNR BAND:77', 'EARFCN:673344 DL_bandwidth:100MHz\r\r\nphysical cell ID:431', 'averaged PUSCH TX power :1 dBm', 'averaged PUCCH TX power :4 dBm', '\r\r\nRX Power Info:\r\r\nRSRQ -14 dB', 'RSRP -79 dBm,SINR 0 dB\r\r\nRX0 power: -66 dBm,ecio: -14 dB', 'rsrp: -80 dBm', 'phase: 0 degree', 'sinr: 0 dB\r\r\nRX1 power: -67 dBm,ecio: -17 dB', 'rsrp: -84 dBm', 'phase: 0 degree', 'sinr: -4 dB\r\r\nRX2 power: -66 dBm,ecio: -16 dB', 'rsrp: -83 dBm', 'phase: 0 degree', 'sinr: -4 dB\r\r\nRX3 power: -72 dBm,ecio: -16 dB', 'rsrp: -88 dBm,phase: 0 degree,sinr: -3 dB\r\r\nNR CQI 12,RANK 2\r\r\nServing Beam SSB index 1,FR2 serving Beam:255,255\r\r\n\r\r\n\r\r\nOK']
         
-        for line in bnrinfo:
+        for line in bnrinfo_comma:
             if "NR BAND" in line:
                 self.__output['NR BAND'] = line.split(":")[1]
             if "EARFCN" in line:
-                self.__output['EARFCN'] = line.split("EARFCN:")[1]
+                self.__output['EARFCN'] = line.split("EARFCN:")[1].split(" ")[0]
             if "DL_bandwidth" in line:
-                self.__output['DL_bandwidth'] = line.split("DL_bandwidth:")[1]
+                self.__output['DL_bandwidth'] = line.split("DL_bandwidth:")[1].split("MHz")[0]
             if "physical cell ID" in line:
                 self.__output['physical cell ID'] = line.split("physical cell ID:")[1]
             if "averaged PUSCH TX power" in line:
-                self.__output['averaged PUSCH TX power'] = line.split(":")[1]
+                self.__output['averaged PUSCH TX power'] = line.split(":")[1].split(" ")[0]
             if "averaged PUCCH TX power" in line:
-                self.__output['averaged PUCCH TX power'] = line.split(":")[1]
+                self.__output['averaged PUCCH TX power'] = line.split(":")[1].split(" ")[0]
             if "RSRQ" in line:
-                self.__output['RSRQ'] = line.split(":")[1]
+                self.__output['RSRQ'] = line.split("RSRQ ")[1].split(" ")[0]
             if "RSRP" in line:
-                self.__output['RSRP'] = line.split(":")[1]
+                self.__output['RSRP'] = line.split(":")[1].split(" dBm,ecio")[0]
             if "SINR" in line:
-                self.__output['SINR'] = line.split(":")[1]
-            if "RX0 power" in line:
-                self.__output['RX0 power'] = line.split(":")[1]
-            if "ecio" in line:
-                self.__output['ecio'] = line.split(":")[1]
-            if "rsrp" in line:
-                self.__output['rsrp'] = line.split(":")[1]
-            if "phase" in line:
-                self.__output['phase'] = line.split(":")[1]
-            if "sinr" in line:
-                self.__output['sinr'] = line.split(":")[1]
+                self.__output['SINR'] = line.split(":")[1].split(" dBm,ecio")[0]
             if "NR CQI" in line:
                 self.__output['NR CQI'] = line.split(" ")[1]
             if "RANK" in line:
@@ -93,6 +84,8 @@ class Scrape:
         # print(bnrinfo)
 
         print(self.__output)
+
+        print(bnrinfo_rx)
 
 
                 
