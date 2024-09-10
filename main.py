@@ -47,6 +47,11 @@ class Scrape:
 
         print(bnrinfo)
 
+        # Parse the output of the command and store it in the output dict
+        bnrinfo = bnrinfo.decode('ascii')
+        bnrinfo = bnrinfo.split("\n")
+                
+
 if __name__ == "__main__":
     scrape = Scrape()
     scrape.get_data()
