@@ -1,6 +1,6 @@
 # Dlinkscraper Python
 
-Dlinkscraper rewritten in python designed to be executed by telegraf. 
+[Dlinkscraper](https://github.com/mavi0/dlinkscraper) rewritten in python designed to be executed by telegraf. 
 
 
 
