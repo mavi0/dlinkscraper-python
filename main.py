@@ -47,7 +47,14 @@ class Scrape:
 
         # Parse the output of the command and store it in the output dict
         bnrinfo = bnrinfo.decode('ascii')
-        bnrinfo = bnrinfo.split("\n")
+        bnrinfo = bnrinfo.split(", ")
+
+        # bnrinfo = ['atcli at+bnrinfo\r', '\r\r', 'NR BAND:77, EARFCN:673344 DL_bandwidth:100MHz\r\r', 'physical cell ID:431, averaged PUSCH TX power :1 dBm, averaged PUCCH TX power :129 dBm, \r\r', 'RX Power Info:\r\r', 'RSRQ -15 dB, RSRP -81 dBm,SINR -1 dB\r\r', 'RX0 power: -65 dBm,ecio: -13 dB, rsrp: -79 dBm, phase: 0 degree, sinr: -1 dB\r\r', 'RX1 power: -67 dBm,ecio: -18 dB, rsrp: -85 dBm, phase: 0 degree, sinr: -4 dB\r\r', 'RX2 power: -66 dBm,ecio: -18 dB, rsrp: -85 dBm, phase: 0 degree, sinr: -7 dB\r\r', 'RX3 power: -72 dBm,ecio: -13 dB, rsrp: -86 dBm,phase: 0 degree,sinr: -2 dB\r\r', 'NR CQI 10,RANK 2\r\r', 'Serving Beam SSB index 1,FR2 serving Beam:255,255\r\r', '\r\r', '\r\r', 'OK']
+
+        # for line in bnrinfo:
+        #     if "NR BAND" in line:
+
+        
 
         print(bnrinfo)
 
