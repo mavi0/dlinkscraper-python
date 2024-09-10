@@ -50,13 +50,13 @@ class Scrape:
             
             for line in bnrinfo_comma:
                 if "NR BAND" in line:
-                    self.__output['NR BAND'] = line.split(":")[1]
+                    self.__output['NR BAND'] = float(line.split(":")[1])
                 if "EARFCN" in line:
-                    self.__output['EARFCN'] = line.split("EARFCN:")[1].split(" ")[0]
+                    self.__output['EARFCN'] = float(line.split("EARFCN:")[1].split(" ")[0])
                 if "DL_bandwidth" in line:
-                    self.__output['DL_bandwidth'] = line.split("DL_bandwidth:")[1].split("MHz")[0]
+                    self.__output['DL_bandwidth'] = float(line.split("DL_bandwidth:")[1].split("MHz")[0])
                 if "physical cell ID" in line:
-                    self.__output['physical cell ID'] = line.split("physical cell ID:")[1]
+                    self.__output['physical cell ID'] = float(line.split("physical cell ID:")[1])
                 if "averaged PUSCH TX power" in line:
                     self.__output['averaged PUSCH TX power'] = float(line.split(":")[1].split(" ")[0])
                 if "averaged PUCCH TX power" in line:
