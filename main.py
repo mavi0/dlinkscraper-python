@@ -32,7 +32,7 @@ class Scrape:
             urllib.request.urlopen("http://" + self.__cpe_hostname + ":8000/atsq.txt")
         except Exception as e:
             pass
-        
+
         # Connect to the CPE via TELNET and login
         tn = Telnet(self.__cpe_hostname)
         tn.read_until(b"login: ")
@@ -40,7 +40,8 @@ class Scrape:
         tn.read_until(b"Password: ")
         tn.write(self.__cpe_passwd.encode('ascii') + b"\n")
         tn.read_until(b"~ # ")
-        tn.write("atcli at+bnrinfo" + b"\n")
+        cmd = "atcli at+bnrinfo"
+        tn.write(cmd.encode('ascii') + b"\n")
         bnrinfo = tn.read_until(b"OK")
         tn.close()
 
