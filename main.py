@@ -80,24 +80,28 @@ class Scrape:
         
         for line in bnrinfo_rx:
             if "0 power" in line:
+                self.__output['RX0'] = {}
                 self.__output['RX0']["power"] = line.split("power: ")[1].split(" dBm,ecio:")[0]
                 self.__output['RX0']["ecio"] = line.split("ecio: ")[1].split(" dB, rsrp:")[0]
                 self.__output['RX0']["rsrp"] = line.split("rsrp: ")[1].split(" dBm, phase")[0]
                 self.__output['RX0']["phase"] = line.split("phase: ")[1].split(" degree, sinr")[0]
                 self.__output['RX0']["sinr"] = line.split("sinr: ")[1].split(" dB")[0]
             if "1 power" in line:
+                self.__output['RX1'] = {}
                 self.__output['RX1']["power"] = line.split("power: ")[1].split(" dBm,ecio:")[0]
                 self.__output['RX1']["ecio"] = line.split("ecio: ")[1].split(" dB, rsrp:")[0]
                 self.__output['RX1']["rsrp"] = line.split("rsrp: ")[1].split(" dBm, phase")[0]
                 self.__output['RX1']["phase"] = line.split("phase: ")[1].split(" degree, sinr")[0]
                 self.__output['RX1']["sinr"] = line.split("sinr: ")[1].split(" dB")[0]
             if "2 power" in line:
+                self.__output['RX2'] = {}
                 self.__output['RX2']["power"] = line.split("power: ")[1].split(" dBm,ecio:")[0]
                 self.__output['RX2']["ecio"] = line.split("ecio: ")[1].split(" dB, rsrp:")[0]
                 self.__output['RX2']["rsrp"] = line.split("rsrp: ")[1].split(" dBm, phase")[0]
                 self.__output['RX2']["phase"] = line.split("phase: ")[1].split(" degree, sinr")[0]
                 self.__output['RX2']["sinr"] = line.split("sinr: ")[1].split(" dB")[0]
             if "3 power" in line:
+                self.__output['RX3'] = {}
                 self.__output['RX3']["power"] = line.split("power: ")[1].split(" dBm,ecio:")[0]
                 self.__output['RX3']["ecio"] = line.split("ecio: ")[1].split(" dB, rsrp:")[0]
                 self.__output['RX3']["rsrp"] = line.split("rsrp: ")[1].split(" dBm, phase")[0]
