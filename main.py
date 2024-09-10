@@ -28,8 +28,11 @@ class Scrape:
     
     def get_data(self):
         # Call TELNET enable url on the CPE
-        urllib.request.urlopen("http://" + self.__cpe_hostname + ":8000/atsq.txt")
-
+        try:
+            urllib.request.urlopen("http://" + self.__cpe_hostname + ":8000/atsq.txt")
+        except Exception as e:
+            pass
+        
         # Connect to the CPE via TELNET and login
         tn = Telnet(self.__cpe_hostname)
         tn.read_until(b"login: ")
