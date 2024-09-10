@@ -47,7 +47,7 @@ class Scrape:
             bnrinfo_comma = bnrinfo.split(", ")
             # RX data is separated by RX
             bnrinfo_rx = bnrinfo.split("\nRX")
-            
+
             for line in bnrinfo_comma:
                 if "NR BAND" in line:
                     self.__output['NR BAND'] = float(line.split(":")[1])
@@ -66,15 +66,15 @@ class Scrape:
                 if "RSRP" in line:
                     self.__output['RSRP'] = float(line.split(":")[1].split(" dBm,ecio")[0])
                 if "SINR" in line:
-                    self.__output['SINR'] = float(line.split(":")[1].split(" dBm,ecio")[0])
+                    self.__output['SINR'] = float(line.split("SINR ")[1].split(" dB")[0])
                 if "NR CQI" in line:
-                    self.__output['NR CQI'] = float(line.split(" ")[1])
+                    self.__output['NR CQI'] = float(line.split("NR CQI ")[1]).split(",RANK")[0]
                 if "RANK" in line:
-                    self.__output['RANK'] = float(line.split(" ")[1])
+                    self.__output['RANK'] = float(line.split(",RANK ")[1]).splet("\r")[0]
                 if "Serving Beam SSB index" in line:
-                    self.__output['Serving Beam SSB index'] = float(line.split(" ")[1])
+                    self.__output['Serving Beam SSB index'] = float(line.split("Serving Beam SSB index ")[1]).split(",FR2")[0]
                 if "FR2 serving Beam" in line:
-                    self.__output['FR2 serving Beam'] = float(line.split(" ")[1])
+                    self.__output['FR2 serving Beam'] = float(line.split("FR2 serving Beam:")[1]).split(",")[0]
             
             for line in bnrinfo_rx:
                 if "0 power" in line:
