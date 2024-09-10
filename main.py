@@ -45,11 +45,13 @@ class Scrape:
         bnrinfo = tn.read_until(b"OK")
         tn.close()
 
-        print(bnrinfo)
-
         # Parse the output of the command and store it in the output dict
         bnrinfo = bnrinfo.decode('ascii')
         bnrinfo = bnrinfo.split("\n")
+
+        print(bnrinfo)
+
+
                 
 
 if __name__ == "__main__":
