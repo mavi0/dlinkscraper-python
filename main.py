@@ -1,7 +1,7 @@
 import warnings
 warnings.filterwarnings("ignore")
 
-import os
+import os, json
 from datetime import datetime
 from telnetlib import Telnet
 import urllib.request
@@ -106,7 +106,7 @@ class Scrape:
                     self.__output['RX3']["phase"] = line.split("phase: ")[1].split(" degree,sinr: ")[0]
                     self.__output['RX3']["sinr"] = line.split("sinr: ")[1].split(" dB")[0]
 
-            print(self.__output)
+            print(json.dumps(self.__output))
 
 if __name__ == "__main__":
     scrape = Scrape()
