@@ -49,17 +49,17 @@ class Scrape:
         bnrinfo = bnrinfo.decode('ascii')
         bnrinfo = bnrinfo.split(", ")
 
-        # bnrinfo = ['atcli at+bnrinfo\r\n\r\r\nNR BAND:77', 'EARFCN:673344 DL_bandwidth:100MHz\r\r\nphysical cell ID:431', 'averaged PUSCH TX power :1 dBm', 'averaged PUCCH TX power :4 dBm', '\r\r\nRX Power Info:\r\r\nRSRQ -14 dB', 'RSRP -79 dBm,SINR 0 dB\r\r\nRX0 power: -66 dBm,ecio: -14 dB', 'rsrp: -80 dBm', 'phase: 0 degree', 'sinr: 0 dB\r\r\nRX1 power: -67 dBm,ecio: -17 dB', 'rsrp: -84 dBm', 'phase: 0 degree', 'sinr: -4 dB\r\r\nRX2 power: -66 dBm,ecio: -16 dB', 'rsrp: -83 dBm', 'phase: 0 degree', 'sinr: -4 dB\r\r\nRX3 power: -72 dBm,ecio: -16 dB', 'rsrp: -88 dBm,phase: 0 degree,sinr: -3 dB\r\r\nNR CQI 12,RANK 2\r\r\nServing Beam SSB index 1,FR2 serving Beam:255,255\r\r\n\r\r\n\r\r\nOK']
+        bnrinfo = ['atcli at+bnrinfo\r\n\r\r\nNR BAND:77', 'EARFCN:673344 DL_bandwidth:100MHz\r\r\nphysical cell ID:431', 'averaged PUSCH TX power :1 dBm', 'averaged PUCCH TX power :4 dBm', '\r\r\nRX Power Info:\r\r\nRSRQ -14 dB', 'RSRP -79 dBm,SINR 0 dB\r\r\nRX0 power: -66 dBm,ecio: -14 dB', 'rsrp: -80 dBm', 'phase: 0 degree', 'sinr: 0 dB\r\r\nRX1 power: -67 dBm,ecio: -17 dB', 'rsrp: -84 dBm', 'phase: 0 degree', 'sinr: -4 dB\r\r\nRX2 power: -66 dBm,ecio: -16 dB', 'rsrp: -83 dBm', 'phase: 0 degree', 'sinr: -4 dB\r\r\nRX3 power: -72 dBm,ecio: -16 dB', 'rsrp: -88 dBm,phase: 0 degree,sinr: -3 dB\r\r\nNR CQI 12,RANK 2\r\r\nServing Beam SSB index 1,FR2 serving Beam:255,255\r\r\n\r\r\n\r\r\nOK']
         
         for line in bnrinfo:
             if "NR BAND" in line:
                 self.__output['NR BAND'] = line.split(":")[1]
             if "EARFCN" in line:
-                self.__output['EARFCN'] = line.split(":")[1]
+                self.__output['EARFCN'] = line.split("EARFCN:")[1]
             if "DL_bandwidth" in line:
-                self.__output['DL_bandwidth'] = line.split(":")[1]
+                self.__output['DL_bandwidth'] = line.split("DL_bandwidth:")[1]
             if "physical cell ID" in line:
-                self.__output['physical cell ID'] = line.split(":")[1]
+                self.__output['physical cell ID'] = line.split("physical cell ID:")[1]
             if "averaged PUSCH TX power" in line:
                 self.__output['averaged PUSCH TX power'] = line.split(":")[1]
             if "averaged PUCCH TX power" in line:
