@@ -49,14 +49,50 @@ class Scrape:
         bnrinfo = bnrinfo.decode('ascii')
         bnrinfo = bnrinfo.split(", ")
 
-        # bnrinfo = ['atcli at+bnrinfo\r', '\r\r', 'NR BAND:77, EARFCN:673344 DL_bandwidth:100MHz\r\r', 'physical cell ID:431, averaged PUSCH TX power :1 dBm, averaged PUCCH TX power :129 dBm, \r\r', 'RX Power Info:\r\r', 'RSRQ -15 dB, RSRP -81 dBm,SINR -1 dB\r\r', 'RX0 power: -65 dBm,ecio: -13 dB, rsrp: -79 dBm, phase: 0 degree, sinr: -1 dB\r\r', 'RX1 power: -67 dBm,ecio: -18 dB, rsrp: -85 dBm, phase: 0 degree, sinr: -4 dB\r\r', 'RX2 power: -66 dBm,ecio: -18 dB, rsrp: -85 dBm, phase: 0 degree, sinr: -7 dB\r\r', 'RX3 power: -72 dBm,ecio: -13 dB, rsrp: -86 dBm,phase: 0 degree,sinr: -2 dB\r\r', 'NR CQI 10,RANK 2\r\r', 'Serving Beam SSB index 1,FR2 serving Beam:255,255\r\r', '\r\r', '\r\r', 'OK']
-
-        # for line in bnrinfo:
-        #     if "NR BAND" in line:
-
+        # bnrinfo = ['atcli at+bnrinfo\r\n\r\r\nNR BAND:77', 'EARFCN:673344 DL_bandwidth:100MHz\r\r\nphysical cell ID:431', 'averaged PUSCH TX power :1 dBm', 'averaged PUCCH TX power :4 dBm', '\r\r\nRX Power Info:\r\r\nRSRQ -14 dB', 'RSRP -79 dBm,SINR 0 dB\r\r\nRX0 power: -66 dBm,ecio: -14 dB', 'rsrp: -80 dBm', 'phase: 0 degree', 'sinr: 0 dB\r\r\nRX1 power: -67 dBm,ecio: -17 dB', 'rsrp: -84 dBm', 'phase: 0 degree', 'sinr: -4 dB\r\r\nRX2 power: -66 dBm,ecio: -16 dB', 'rsrp: -83 dBm', 'phase: 0 degree', 'sinr: -4 dB\r\r\nRX3 power: -72 dBm,ecio: -16 dB', 'rsrp: -88 dBm,phase: 0 degree,sinr: -3 dB\r\r\nNR CQI 12,RANK 2\r\r\nServing Beam SSB index 1,FR2 serving Beam:255,255\r\r\n\r\r\n\r\r\nOK']
+        
+        for line in bnrinfo:
+            if "NR BAND" in line:
+                self.__output['NR BAND'] = line.split(":")[1]
+            if "EARFCN" in line:
+                self.__output['EARFCN'] = line.split(":")[1]
+            if "DL_bandwidth" in line:
+                self.__output['DL_bandwidth'] = line.split(":")[1]
+            if "physical cell ID" in line:
+                self.__output['physical cell ID'] = line.split(":")[1]
+            if "averaged PUSCH TX power" in line:
+                self.__output['averaged PUSCH TX power'] = line.split(":")[1]
+            if "averaged PUCCH TX power" in line:
+                self.__output['averaged PUCCH TX power'] = line.split(":")[1]
+            if "RSRQ" in line:
+                self.__output['RSRQ'] = line.split(":")[1]
+            if "RSRP" in line:
+                self.__output['RSRP'] = line.split(":")[1]
+            if "SINR" in line:
+                self.__output['SINR'] = line.split(":")[1]
+            if "RX0 power" in line:
+                self.__output['RX0 power'] = line.split(":")[1]
+            if "ecio" in line:
+                self.__output['ecio'] = line.split(":")[1]
+            if "rsrp" in line:
+                self.__output['rsrp'] = line.split(":")[1]
+            if "phase" in line:
+                self.__output['phase'] = line.split(":")[1]
+            if "sinr" in line:
+                self.__output['sinr'] = line.split(":")[1]
+            if "NR CQI" in line:
+                self.__output['NR CQI'] = line.split(" ")[1]
+            if "RANK" in line:
+                self.__output['RANK'] = line.split(" ")[1]
+            if "Serving Beam SSB index" in line:
+                self.__output['Serving Beam SSB index'] = line.split(" ")[1]
+            if "FR2 serving Beam" in line:
+                self.__output['FR2 serving Beam'] = line.split(" ")[1]
         
 
-        print(bnrinfo)
+        # print(bnrinfo)
+
+        print(self.__output)
 
 
                 
