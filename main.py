@@ -1,4 +1,5 @@
 import warnings
+# no warnings, only dreams... and json
 warnings.filterwarnings("ignore")
 
 import os, json
@@ -22,6 +23,7 @@ class Scrape:
 
             Returns:
                 None
+                [but it prints the output as JSON]
             """
             # Call TELNET enable url on the CPE
             try:
@@ -48,6 +50,9 @@ class Scrape:
             # RX data is separated by RX
             bnrinfo_rx = bnrinfo.split("\nRX")
 
+            # Just use regex, you say? I say, I'm lazy and this works but ALSO I'm not a masochist.
+            # Also look at the go version of this which uses regexes, it's a mess. 
+            # Because the output is a mess. And I'm a contradictory masochist.
             for line in bnrinfo_comma:
                 if "NR BAND" in line:
                     self.__output['NR BAND'] = float(line.split(":")[1])
@@ -76,6 +81,7 @@ class Scrape:
                 if "FR2 serving Beam" in line:
                     self.__output['FR2 serving Beam'] = float(line.split("FR2 serving Beam:")[1].split(",")[0])
             
+            # I know this looks like it could be a nested loop, but the output is cursed and just.. play spot the difference. 
             for line in bnrinfo_rx:
                 if "0 power" in line:
                     self.__output['RX0'] = {}
@@ -106,6 +112,7 @@ class Scrape:
                     self.__output['RX3']["phase"] = float(line.split("phase: ")[1].split(" degree,sinr: ")[0])
                     self.__output['RX3']["sinr"] = float(line.split("sinr: ")[1].split(" dB")[0])
 
+            # Print the output as JSON so it can be consumed by telegraf
             print(json.dumps(self.__output))
 
 if __name__ == "__main__":
