@@ -14,3 +14,5 @@ See `telegraf.conf` snippet below:
   name_override = "dlink"
 ...
   ```
+
+Should be used with [telegraf-perf](https://github.com/mavi0/telegraf-perf) - a docker image with extra binaries installed for metrics gathering. 
